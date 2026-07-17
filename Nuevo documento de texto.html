@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEX Network Hosting - Enlaces Mediafire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            /* Fondo mejorado: más profundo, colores armonizados y efecto suave */
+            background: radial-gradient(circle at 15% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 80%, rgba(0, 191, 255, 0.12) 0%, transparent 40%),
+                        linear-gradient(180deg, #05030f 0%, #0a0520 30%, #000000 100%);
+            position: relative;
+            overflow-x: hidden;
+            color: white;
+            padding: 20px 10px;
+        }
+
+        /* Estrellas optimizadas: menos carga, movimiento más suave */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1.5px 1.5px at 40px 70px, rgba(200,150,255,0.7), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1.5px 1.5px at 160px 120px, rgba(0,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 230px 80px, rgba(255,255,255,0.9), transparent);
+            background-repeat: repeat;
+            background-size: 350px 200px;
+            animation: moverEstrellas 70s linear infinite;
+            opacity: 0.8;
+            will-change: transform; /* Optimización de rendimiento */
+        }
+
+        @keyframes moverEstrellas {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-200px); }
+        }
+
+        /* Animación RGB morado/púrpura */
+        @keyframes rgbMorado {
+            0% { border-color: #9933ff; box-shadow: 0 0 15px #9933ff, inset 0 0 5px rgba(153, 51, 255, 0.2); }
+            25% { border-color: #cc66ff; box-shadow: 0 0 15px #cc66ff, inset 0 0 5px rgba(204, 102, 255, 0.2); }
+            50% { border-color: #ff33ff; box-shadow: 0 0 15px #ff33ff, inset 0 0 5px rgba(255, 51, 255, 0.2); }
+            75% { border-color: #cc66ff; box-shadow: 0 0 15px #cc66ff, inset 0 0 5px rgba(204, 102, 255, 0.2); }
+            100% { border-color: #9933ff; box-shadow: 0 0 15px #9933ff, inset 0 0 5px rgba(153, 51, 255, 0.2); }
+        }
+
+        /* Contenedor principal */
+        .contenedor {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Cabecera */
+        .cabecera {
+            margin-bottom: 40px;
+        }
+
+        .nombre-empresa{
+            font-size:60px;
+            font-weight:900;
+            text-transform:uppercase;
+            letter-spacing:5px;
+            text-align:center;
+            font-family:'Orbitron',sans-serif;
+
+            background:linear-gradient(
+                90deg,
+                #ff0000,
+                #ff7300,
+                #ffe600,
+                #00ff00,
+                #00ffff,
+                #004cff,
+                #8f00ff,
+                #ff0080,
+                #ff0000
+            );
+
+            background-size:800%;
+            -webkit-background-clip:text;
+            background-clip:text;
+            -webkit-text-fill-color:transparent;
+
+            animation:RGB 10s linear infinite;
+
+            text-shadow:
+            0 0 5px rgba(255,255,255,.5),
+            0 0 15px rgba(255,255,255,.4),
+            0 0 25px rgba(255,0,255,.5),
+            0 0 40px rgba(0,255,255,.5);
+        }
+
+        .subtitulo{
+            margin-top:15px;
+            text-align:center;
+            font-size:22px;
+            font-family:'Poppins',sans-serif;
+            color:#ffffff;
+
+            text-shadow:
+            0 0 8px #00ffff,
+            0 0 18px #00ffff,
+            0 0 30px #7d00ff;
+
+            animation:Pulse 2s infinite;
+        }
+
+        /* LOGO DE PERFIL COMPACTO */
+        .contenedor-logo {
+            margin: 15px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-perfil {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #25D366;
+            box-shadow: 0 0 12px #25D366, 0 0 25px #25D366;
+            transition: transform 0.3s ease;
+            background: rgba(10, 5, 30, 0.8);
+        }
+
+        .logo-perfil:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes RGB{
+            0%{ background-position:0%; }
+            100%{ background-position:800%; }
+        }
+
+        @keyframes Pulse{
+            0%{ transform:scale(1); opacity:1; }
+            50%{ transform:scale(1.05); opacity:.85; }
+            100%{ transform:scale(1); opacity:1; }
+        }
+
+        /* SECCIÓN DE IP Y PUERTOS */
+        .servidores {
+            margin: 20px auto;
+            padding: 12px 15px;
+            max-width: 700px;
+            background: rgba(15, 8, 35, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        .titulo-servidores {
+            font-size: 1.1rem;
+            color: #ff99ff;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 153, 255, 0.4);
+        }
+
+        .lista-servidores {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        .servidor-item {
+            padding: 8px 15px;
+            background: rgba(10, 5, 30, 0.7);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #00ffff;
+        }
+
+        /* Botones de redes */
+        .redes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn-red {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            color: white;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
+            background: #4752C4;
+        }
+
+        .btn-tiktok {
+            background: #000000;
+            color: white;
+            border: 1px solid #FF0050;
+            box-shadow: 0 4px 15px rgba(255, 0, 80, 0.3);
+        }
+
+        .btn-tiktok:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 80, 0.5);
+            border-color: #00F2EA;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: 1px solid #1da851;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            background: #1da851;
+        }
+
+        /* BOTÓN FLOTANTE DE WHATSAPP */
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5), 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-flotante:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.7), 0 6px 20px rgba(37, 211, 102, 0.6);
+            background: #1da851;
+        }
+
+        /* Cuadrícula de tarjetas */
+        .grid-enlaces {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
+        }
+
+        .tarjeta-gm {
+            background: rgba(25, 15, 50, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #9933ff;
+            transition: all 0.3s ease;
+            text-align: center;
+            animation: rgbMorado 3s linear infinite;
+        }
+
+        .tarjeta-gm:hover {
+            transform: translateY(-4px);
+            border-width: 3px;
+        }
+
+        .foto-gm {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #9933ff;
+            animation: rgbMorado 3s linear infinite;
+            background: rgba(10, 5, 30, 0.8);
+        }
+
+        .foto-vacia {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8888aa;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .numero-gm {
+            font-size: 0.9rem;
+            color: #ff99ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .nombre-gm {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            word-break: break-word;
+        }
+
+        .btn-descarga {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #009cde, #00bfff);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 156, 222, 0.4);
+        }
+
+        .btn-descarga:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 156, 222, 0.6);
+            background: linear-gradient(90deg, #0088c2, #00a8d8);
+        }
+
+        .btn-desactivado {
+            background: rgba(80, 80, 120, 0.5);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-desactivado:hover {
+            transform: none;
+            box-shadow: none;
+            background: rgba(80, 80, 120, 0.5);
+        }
+
+        .pie {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+            color: #8888aa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nombre-empresa {
+                font-size: 2.2rem;
+                letter-spacing: 2px;
+            }
+            .subtitulo {
+                font-size: 18px;
+            }
+            .logo-perfil {
+                width: 100px;
+                height: 100px;
+            }
+            .grid-enlaces {
+                grid-template-columns: 1fr;
+            }
+            .whatsapp-flotante {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="contenedor">
+        <div class="cabecera">
+            <h1 class="nombre-empresa">NEX Network Hosting</h1>
+            <p class="subtitulo">No te olvides seguirme para seguir subiendo más gm</p>
+
+            <div class="contenedor-logo">
+                <img src="ChatGPT Image 17 jul 2026, 08_23_06.png" alt="Logo NEX Network Hosting" class="logo-perfil">
+            </div>
+
+            <div class="servidores">
+                <div class="titulo-servidores">🌐 Servidores disponibles</div>
+                <div class="lista-servidores">
+                    <div class="servidor-item">188.93.139.96:8888</div>
+                    <div class="servidor-item">188.93.139.96:7002</div>
+                    <div class="servidor-item">188.93.139.96:7777</div>
+                </div>
+            </div>
+
+            <div class="redes">
+                <a href="https://discord.gg/EH35DA2KHW" class="btn-red btn-discord" target="_blank" rel="noopener noreferrer">💬 Discord</a>
+                <a href="https://www.tiktok.com/@nexnetworkhosting?_r=1&_t=ZS-98668nCp6Sf" class="btn-red btn-tiktok" target="_blank" rel="noopener noreferrer">🎵 TikTok</a>
+                <a href="https://wa.me/qr/A2HW4A7P754PO1" class="btn-red btn-whatsapp" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+                <a href="#" class="btn-red btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+        </div>
+
+        <div class="grid-enlaces">
+            <div class="tarjeta-gm">
+                <img src="hh.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #1</div>
+                <div class="nombre-gm">SampDroid</div>
+                <a href="https://download1514.mediafire.com/5q62n2x3l0jg/j4wrk6snh2otzo7/SampDroid.rar" target="_blank" rel="noopener noreferrer" class="btn-descarga">⬇️ Descargar Mediafire</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gg.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #2</div>
+                <div class="nombre-gm">SampDroid#1</div>
+                <a href="https://www.mediafire.com/file/op8u5l3lca0q895/SampDroid1.rar/file" target="_blank" rel="noopener noreferrer" class="btn-descarga">⬇️ Descargar Mediafire</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="colombia.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #3</div>
+                <div class="nombre-gm">Colombia</div>
+                <a href="https://www.mediafire.com/file/z15qsznw45iv4pg/Colombia.rar/file" target="_blank" rel="noopener noreferrer" class="btn-descarga">⬇️ Descargar Mediafire</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #4</div>
+                <div class="nombre-gm">NEX Network Hosting GM</div>
+                <a href="https://www.mediafire.com/file/g9hwfqukydu5izp/NEX_Network_Hosting.rar/file" target="_blank" rel="noopener noreferrer" class="btn-descarga">⬇️ Descargar Mediafire</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #5</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #6</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #7</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #8</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #9</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #10</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #11</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #12</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #13</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #14</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #15</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #16</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #17</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #18</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #19</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #20</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+
+            <div class="tarjeta-gm">
+                <img src="gm1.png" alt="SampDroid" class="foto-gm">
+                <div class="numero-gm">GM #21</div>
+                <div class="nombre-gm">Nombre de la GM</div>
+                <a href="#" class="btn-descarga btn-desactivado" onclick="return false;">🔗 Enlace pendiente</a>
+            </div>
+        </div>
+
+        <div class="pie">
+            © 2026 NEX Network Hosting - Todos los derechos reservados
+        </div>
+    </div>
+
+    <a href="https://wa.me/qr/A2HW4A7P754PO1" class="whatsapp-flotante" target="_blank" rel="noopener noreferrer">
+        💬 Escríbeme
+    </a>
+</body>
+</html>
