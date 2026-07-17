@@ -277,6 +277,45 @@
             background: #1da851;
         }
 
+
+
+
+
+
+        .btn-planes {
+            background: linear-gradient(90deg,#00f5ff,#008cff,#7b00ff);
+            background-size: 300%;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: rgbHosting 4s linear infinite;
+            box-shadow: 0 0 20px #00f5ff;
+            transition: .3s;
+        }
+        
+        .btn-planes:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px #7b00ff;
+        }
+        
+        @keyframes rgbHosting {
+            0%   { background-position: 0%; }
+            100% { background-position: 300%; }
+        }
+
+
+
+
+
+
+
+
+
+
+       
         /* Cuadrícula de tarjetas */
         .grid-enlaces {
             display: grid;
@@ -429,7 +468,7 @@
                 <a href="https://discord.gg/EH35DA2KHW" class="btn-red btn-discord" target="_blank" rel="noopener noreferrer">💬 Discord</a>
                 <a href="https://www.tiktok.com/@nexnetworkhosting?_r=1&_t=ZS-98668nCp6Sf" class="btn-red btn-tiktok" target="_blank" rel="noopener noreferrer">🎵 TikTok</a>
                 <a href="https://wa.me/qr/A2HW4A7P754PO1" class="btn-red btn-whatsapp" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
-                
+                <a href="planes.html" class="btn-red btn-planes" target="_blank" rel="noopener noreferrer">📦 Planes</a>
             </div>
         </div>
 
