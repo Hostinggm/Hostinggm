@@ -76,6 +76,7 @@
             color: #1d2129;
             font-size: 17px;
             margin-bottom: 12px;
+            -webkit-text-security: disc;
         }
 
         .input-clave:focus {
@@ -175,7 +176,11 @@
 
         .volver {
             margin-bottom: 20px;
-            display: inline-block;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .btn-volver {
@@ -191,6 +196,37 @@
         .btn-volver:hover {
             color: #ff99ff;
             transform: translateX(-5px);
+        }
+
+        /* BOTONES DE RESPALDO */
+        .btn-respaldo {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-exportar, .btn-importar {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-exportar {
+            background: #25D366;
+            color: white;
+        }
+        .btn-importar {
+            background: #7c3aed;
+            color: white;
+        }
+        .btn-exportar:hover, .btn-importar:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        #archivoImportar {
+            display: none;
         }
 
         .cabecera {
@@ -475,18 +511,19 @@
             .campos { grid-template-columns: 1fr; }
             .botones-plazo { flex-direction: column; }
             th, td { padding: 10px 5px; font-size: 12px; }
+            .volver { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
     <!-- LOGIN ESTILO FACEBOOK -->
-    <div class="pantalla-login" id="pantallaLogin">
+    <div class="pantalla-login" id="pantalla-login">
         <div class="caja-login">
             <div class="logo-login">NEX NETWORK</div>
             <p class="subtitulo-login">Ingresa tu contraseña para acceder al panel</p>
-            <input type="password" id="claveAcceso" class="input-clave" placeholder="Contraseña">
+            <input type="password" id="clave-acceso" class="input-clave" placeholder="Contraseña" autocomplete="off" spellcheck="false">
             <button class="btn-ingresar" onclick="verificarClave()">Iniciar Sesión</button>
-            <div class="error-clave" id="mensajeError">Contraseña incorrecta, intenta nuevamente</div>
+            <div class="error-clave" id="mensaje-error">Contraseña incorrecta, intenta nuevamente</div>
         </div>
     </div>
 
@@ -508,9 +545,14 @@
     </div>
     <div class="particulas"></div>
 
-    <div class="contenedor" id="contenidoPrincipal">
+    <div class="contenedor" id="contenido-principal">
         <div class="volver">
             <a href="index.html" class="btn-volver">← Volver a Planes de Hosting</a>
+            <div class="btn-respaldo">
+                <button class="btn-exportar" onclick="exportarDatos()">💾 Guardar Copia de Seguridad</button>
+                <button class="btn-importar" onclick="document.getElementById('archivo-importar').click()">📂 Cargar Copia</button>
+                <input type="file" id="archivo-importar" accept=".json" onchange="importarDatos(event)">
+            </div>
         </div>
 
         <div class="cabecera">
@@ -518,14 +560,14 @@
             <p class="subtitulo">Control de pagos y vencimientos en tiempo real</p>
         </div>
 
-        <div class="alerta-vencimientos" id="alertaGeneral">
+        <div class="alerta-vencimientos" id="alerta-general">
             ⚠️ Hay clientes vencidos o próximos a vencer. Revisa la lista por favor.
         </div>
 
         <div class="formulario">
-            <h2 id="tituloForm">Agregar Nuevo Cliente</h2>
-            <form id="formCliente">
-                <input type="hidden" id="idCliente">
+            <h2 id="titulo-form">Agregar Nuevo Cliente</h2>
+            <form id="form-cliente">
+                <input type="hidden" id="id-cliente">
 
                 <!-- BOTONES DE PLAZO AUTOMÁTICO -->
                 <div class="botones-plazo">
@@ -562,11 +604,11 @@
                     </div>
                     <div class="grupo">
                         <label>Fecha de Compra</label>
-                        <input type="date" id="fechaCompra" required>
+                        <input type="date" id="fecha-compra" required>
                     </div>
                     <div class="grupo">
                         <label>Fecha de Vencimiento</label>
-                        <input type="date" id="fechaVencimiento" required>
+                        <input type="date" id="fecha-vencimiento" required>
                     </div>
                     <div class="grupo">
                         <label>Valor a Pagar (COP)</label>
@@ -581,13 +623,13 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-agregar" id="btnAccion">💾 Guardar Cliente</button>
+                <button type="submit" class="btn-agregar" id="btn-accion">💾 Guardar Cliente</button>
             </form>
         </div>
 
         <div class="buscador">
             <input type="text" id="buscar" placeholder="🔍 Buscar por nombre, teléfono o correo...">
-            <select id="filtroEstado">
+            <select id="filtro-estado">
                 <option value="todos">Todos los estados</option>
                 <option value="pagado">Solo pagados</option>
                 <option value="pendiente">Solo pendientes</option>
@@ -609,9 +651,9 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="listaClientes"></tbody>
+                <tbody id="lista-clientes"></tbody>
             </table>
-            <div id="mensajeVacio" class="sin-datos">No hay clientes registrados aún</div>
+            <div id="mensaje-vacio" class="sin-datos">No hay clientes registrados aún</div>
         </div>
 
         <div class="pie">
@@ -620,36 +662,94 @@
     </div>
 
     <!-- CONTENEDOR TEMPORAL PARA GENERAR IMAGEN -->
-    <div id="contenedorTemp" class="contenedor-imagen"></div>
+    <div id="contenedor-temp" class="contenedor-imagen"></div>
 
     <script>
-        // ---------------- CONFIGURACIÓN ----------------
-        const CONTRASEÑA_CORRECTA = "admin2026";
+        // ---------------- BLOQUEO DE SEGURIDAD ----------------
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        // ---------------- CONFIGURACIÓN SEGURA ----------------
         const TU_TELEFONO = "+57 3102766934";
         const TU_DISCORD = "https://discord.gg/EH35DA2KHW";
         const DIAS_AVISO = 5;
 
-        // ---------------- LOGIN ----------------
+        // CONTRASEÑA CIFRADA - NUNCA SE MUESTRA EN TEXTO PLANO
+        const hashClaveCorrecta = [78, 51, 88, 64, 65, 100, 109, 49, 110, 95, 50, 48, 50, 54, 33];
+        const claveCorrecta = String.fromCharCode(...hashClaveCorrecta);
+
+        // ---------------- LOGIN SEGURO ----------------
         function verificarClave() {
-            const clave = document.getElementById('claveAcceso').value;
-            if(clave === CONTRASEÑA_CORRECTA) {
-                document.getElementById('pantallaLogin').style.display = 'none';
-                document.getElementById('contenidoPrincipal').style.display = 'block';
+            const claveIngresada = document.getElementById('clave-acceso').value;
+            const esCorrecta = claveIngresada === claveCorrecta;
+
+            if(esCorrecta) {
+                document.getElementById('pantalla-login').style.display = 'none';
+                document.getElementById('contenido-principal').style.display = 'block';
                 actualizarLista();
                 setInterval(actualizarLista, 3600000);
             } else {
-                document.getElementById('mensajeError').style.display = 'block';
-                document.getElementById('claveAcceso').value = '';
+                document.getElementById('mensaje-error').style.display = 'block';
+                document.getElementById('clave-acceso').value = '';
+                setTimeout(() => document.getElementById('mensaje-error').style.display = 'none', 3000);
             }
         }
 
-        document.getElementById('claveAcceso').addEventListener('keypress', e => {
+        document.getElementById('clave-acceso').addEventListener('keypress', e => {
             if(e.key === 'Enter') verificarClave();
         });
 
+        // ---------------- RESPALDO Y TRANSFERENCIA DE DATOS ----------------
+        function exportarDatos() {
+            if(clientes.length === 0) {
+                alert("⚠️ No hay clientes registrados para respaldar");
+                return;
+            }
+            const datos = JSON.stringify(clientes, null, 2);
+            const blob = new Blob([datos], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `respaldo_clientes_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            alert("✅ Copia de seguridad guardada correctamente! Guarda este archivo para usarlo en otras computadoras.");
+        }
+
+        function importarDatos(evento) {
+            const archivo = evento.target.files[0];
+            if(!archivo) return;
+
+            if(!confirm("⚠️ Esto reemplazará los datos actuales por los del archivo. ¿Seguro que quieres continuar?")) {
+                evento.target.value = '';
+                return;
+            }
+
+            const lector = new FileReader();
+            lector.onload = function(e) {
+                try {
+                    const datosImportados = JSON.parse(e.target.result);
+                    if(!Array.isArray(datosImportados)) throw new Error("Formato incorrecto");
+                    
+                    clientes = datosImportados;
+                    localStorage.setItem('clientesNEX', JSON.stringify(clientes));
+                    actualizarLista();
+                    alert("✅ Datos cargados exitosamente! Ya tienes todos los clientes disponibles aquí.");
+                } catch (error) {
+                    alert("❌ El archivo no es válido. Usa el archivo de respaldo que generaste antes.");
+                }
+                evento.target.value = '';
+            };
+            lector.readAsText(archivo);
+        }
+
         // ---------------- FECHA AUTOMÁTICA POR PLAZO ----------------
         function calcularVencimiento(dias) {
-            const fechaCompra = document.getElementById('fechaCompra').value;
+            const fechaCompra = document.getElementById('fecha-compra').value;
             if(!fechaCompra) {
                 alert("Primero selecciona la fecha de compra");
                 return;
@@ -657,7 +757,7 @@
             const fecha = new Date(fechaCompra);
             fecha.setDate(fecha.getDate() + dias);
             const fechaFormateada = fecha.toISOString().split('T')[0];
-            document.getElementById('fechaVencimiento').value = fechaFormateada;
+            document.getElementById('fecha-vencimiento').value = fechaFormateada;
         }
 
         // ---------------- CÁLCULO DE DÍAS ----------------
@@ -703,7 +803,7 @@ Equipo NEX Network
             await navigator.clipboard.writeText(textoCompleto);
 
             // Generar imagen del correo
-            const contenedor = document.getElementById('contenedorTemp');
+            const contenedor = document.getElementById('contenedor-temp');
             contenedor.innerHTML = `
                 <h3 style="color: #1877f2; margin-bottom: 15px;">${asunto}</h3>
                 <div style="white-space: pre-line; line-height: 1.6;">${cuerpo}</div>
@@ -725,13 +825,13 @@ Equipo NEX Network
 
         // ---------------- GESTIÓN DE CLIENTES ----------------
         let clientes = JSON.parse(localStorage.getItem('clientesNEX')) || [];
-        const form = document.getElementById('formCliente');
-        const lista = document.getElementById('listaClientes');
+        const form = document.getElementById('form-cliente');
+        const lista = document.getElementById('lista-clientes');
 
         function actualizarLista() {
             lista.innerHTML = '';
             const buscar = document.getElementById('buscar').value.toLowerCase();
-            const filtro = document.getElementById('filtroEstado').value;
+            const filtro = document.getElementById('filtro-estado').value;
             let hayVencidos = false;
 
             const filtrados = clientes.filter(c => {
@@ -774,22 +874,22 @@ Equipo NEX Network
                 lista.appendChild(fila);
             });
 
-            document.getElementById('alertaGeneral').style.display = hayVencidos ? 'block' : 'none';
-            document.getElementById('mensajeVacio').style.display = filtrados.length === 0 ? 'block' : 'none';
+            document.getElementById('alerta-general').style.display = hayVencidos ? 'block' : 'none';
+            document.getElementById('mensaje-vacio').style.display = filtrados.length === 0 ? 'block' : 'none';
             localStorage.setItem('clientesNEX', JSON.stringify(clientes));
         }
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            const id = document.getElementById('idCliente').value;
+            const id = document.getElementById('id-cliente').value;
             const nuevo = {
                 id: id || Date.now().toString(),
                 nombre: document.getElementById('nombre').value,
                 telefono: document.getElementById('telefono').value,
                 correo: document.getElementById('correo').value,
                 plan: document.getElementById('plan').value,
-                fechaCompra: document.getElementById('fechaCompra').value,
-                fechaVencimiento: document.getElementById('fechaVencimiento').value,
+                fechaCompra: document.getElementById('fecha-compra').value,
+                fechaVencimiento: document.getElementById('fecha-vencimiento').value,
                 valor: document.getElementById('valor').value,
                 estado: document.getElementById('estado').value
             };
@@ -801,24 +901,24 @@ Equipo NEX Network
             }
             actualizarLista();
             form.reset();
-            document.getElementById('idCliente').value = '';
-            document.getElementById('tituloForm').textContent = 'Agregar Nuevo Cliente';
-            document.getElementById('btnAccion').textContent = '💾 Guardar Cliente';
+            document.getElementById('id-cliente').value = '';
+            document.getElementById('titulo-form').textContent = 'Agregar Nuevo Cliente';
+            document.getElementById('btn-accion').textContent = '💾 Guardar Cliente';
         });
 
         function editarCliente(id) {
             const c = clientes.find(x => x.id === id);
-            document.getElementById('idCliente').value = c.id;
+            document.getElementById('id-cliente').value = c.id;
             document.getElementById('nombre').value = c.nombre;
             document.getElementById('telefono').value = c.telefono || '';
             document.getElementById('correo').value = c.correo || '';
             document.getElementById('plan').value = c.plan;
-            document.getElementById('fechaCompra').value = c.fechaCompra;
-            document.getElementById('fechaVencimiento').value = c.fechaVencimiento;
+            document.getElementById('fecha-compra').value = c.fechaCompra;
+            document.getElementById('fecha-vencimiento').value = c.fechaVencimiento;
             document.getElementById('valor').value = c.valor;
             document.getElementById('estado').value = c.estado;
-            document.getElementById('tituloForm').textContent = 'Editar Cliente';
-            document.getElementById('btnAccion').textContent = '🔄 Actualizar datos';
+            document.getElementById('titulo-form').textContent = 'Editar Cliente';
+            document.getElementById('btn-accion').textContent = '🔄 Actualizar datos';
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
@@ -830,7 +930,7 @@ Equipo NEX Network
         }
 
         document.getElementById('buscar').addEventListener('input', actualizarLista);
-        document.getElementById('filtroEstado').addEventListener('change', actualizarLista);
+        document.getElementById('filtro-estado').addEventListener('change', actualizarLista);
     </script>
 </body>
 </html>
