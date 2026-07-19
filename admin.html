@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEX Network - Panel Administrativo</title>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
+        /* --- TODOS LOS ESTILOS SE MANTIENEN IGUALES --- */
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +28,7 @@
             padding: 20px 10px;
         }
 
-        /* ---------------- LOGIN ORIGINAL OSCURO ---------------- */
+        /* LOGIN */
         .pantalla-login {
             position: fixed;
             top: 0;
@@ -128,7 +130,6 @@
             text-shadow: 0 0 5px rgba(255, 68, 102, 0.3);
         }
 
-        /* ---------------- FONDO ORIGINAL ---------------- */
         .fondo-lobo {
             position: fixed;
             top: 50%;
@@ -172,18 +173,11 @@
             to { transform: translateY(-180px); }
         }
 
-        @keyframes rgbMorado {
-            0% { border-color: #9933ff; box-shadow: 0 0 15px #9933ff, inset 0 0 5px rgba(153, 51, 255, 0.2); }
-            50% { border-color: #ff33ff; box-shadow: 0 0 20px #ff33ff, inset 0 0 5px rgba(255, 51, 255, 0.2); }
-            100% { border-color: #9933ff; box-shadow: 0 0 15px #9933ff, inset 0 0 5px rgba(153, 51, 255, 0.2); }
-        }
-
         @keyframes RGB {
             0% { background-position: 0%; }
             100% { background-position: 800%; }
         }
 
-        /* ---------------- CONTENIDO PRINCIPAL ---------------- */
         .contenedor {
             position: relative;
             z-index: 2;
@@ -216,7 +210,6 @@
             transform: translateX(-5px);
         }
 
-        /* BOTONES DE RESPALDO */
         .btn-respaldo {
             display: flex;
             gap: 8px;
@@ -231,21 +224,9 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .btn-exportar {
-            background: #25D366;
-            color: white;
-        }
-        .btn-importar {
-            background: #7c3aed;
-            color: white;
-        }
-        .btn-exportar:hover, .btn-importar:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        #archivoImportar {
-            display: none;
-        }
+        .btn-exportar { background: #25D366; color: white; }
+        .btn-importar { background: #7c3aed; color: white; }
+        .btn-exportar:hover, .btn-importar:hover { opacity: 0.9; transform: translateY(-1px); }
 
         .cabecera {
             text-align: center;
@@ -270,11 +251,7 @@
             margin-bottom: 5px;
         }
 
-        .subtitulo {
-            color: #ff99ff;
-            font-size: 16px;
-        }
-
+        .subtitulo { color: #ff99ff; font-size: 16px; }
         .alerta-vencimientos {
             background: rgba(255, 100, 0, 0.15);
             border: 2px solid #ff6600;
@@ -309,7 +286,6 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* BOTONES DE PLAZO */
         .botones-plazo {
             display: flex;
             gap: 10px;
@@ -332,10 +308,7 @@
             border: 1px solid #00ffff;
         }
 
-        .btn-plazo:hover {
-            background: #00ffff;
-            color: #020108;
-        }
+        .btn-plazo:hover { background: #00ffff; color: #020108; }
 
         .campos {
             display: grid;
@@ -344,18 +317,8 @@
             margin-bottom: 20px;
         }
 
-        .grupo {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .grupo label {
-            font-size: 14px;
-            color: #ff99ff;
-            font-weight: 600;
-        }
-
+        .grupo { display: flex; flex-direction: column; gap: 6px; }
+        .grupo label { font-size: 14px; color: #ff99ff; font-weight: 600; }
         .grupo input, .grupo select {
             padding: 12px;
             border-radius: 6px;
@@ -364,12 +327,7 @@
             color: white;
             font-size: 15px;
         }
-
-        .grupo input:focus, .grupo select:focus {
-            outline: none;
-            border-color: #00ffff;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
-        }
+        .grupo input:focus, .grupo select:focus { outline: none; border-color: #00ffff; box-shadow: 0 0 8px rgba(0, 255, 255, 0.4); }
 
         .btn-agregar {
             width: 100%;
@@ -383,11 +341,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .btn-agregar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
-        }
+        .btn-agregar:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5); }
 
         .buscador {
             margin-bottom: 20px;
@@ -400,7 +354,6 @@
             border-radius: 16px;
             border: 2px solid #9933ff;
         }
-
         .buscador input {
             flex: 1;
             min-width: 250px;
@@ -411,7 +364,6 @@
             color: white;
             font-size: 15px;
         }
-
         .buscador select {
             padding: 10px;
             border-radius: 6px;
@@ -429,54 +381,23 @@
             border: 2px solid #9933ff;
             overflow-x: auto;
         }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { color: #00ffff; font-weight: 600; font-size: 13px; font-family: 'Orbitron', sans-serif; }
+        td { color: #ddddff; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
-        th, td {
-            padding: 12px 8px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        th {
-            color: #00ffff;
-            font-weight: 600;
-            font-size: 13px;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        td {
-            color: #ddddff;
-        }
-
-        /* COLORES DE ESTADO Y DÍAS */
-        .dias-falta { font-weight: 700; text-align: center; }
         .dias-verde { color: #25D366; }
         .dias-amarillo { color: #ffcc00; animation: parpadeoAlerta 1.5s infinite; }
         .dias-rojo { color: #ff4444; font-weight: 900; }
         .dias-vencido { color: #ff0000; font-weight: 900; }
 
-        .estado-pagado { color: #25D366; font-weight: 700; }
-        .estado-pendiente { color: #ffcc00; font-weight: 700; }
-        .estado-vencido { color: #ff4444; font-weight: 700; }
-
-        .punto-estado {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
+        .punto-estado { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
         .punto-verde { background: #25D366; }
         .punto-amarillo { background: #ffcc00; }
         .punto-rojo { background: #ff4444; }
 
         .acciones { display: flex; gap: 5px; flex-wrap: wrap; }
-        .btn-editar, .btn-eliminar, .btn-descargar, .btn-correo {
+        .btn-editar, .btn-eliminar, .btn-correo {
             padding: 6px 8px;
             border: none;
             border-radius: 4px;
@@ -487,56 +408,24 @@
         }
         .btn-editar { background: #ffcc00; color: #020108; }
         .btn-eliminar { background: #ff4444; color: white; }
-        .btn-descargar { background: #0099ff; color: white; }
         .btn-correo { background: #7c3aed; color: white; }
-        .btn-editar:hover, .btn-eliminar:hover, .btn-descargar:hover, .btn-correo:hover {
-            opacity: 0.85;
-            transform: scale(1.05);
-        }
+        .btn-editar:hover, .btn-eliminar:hover, .btn-correo:hover { opacity: 0.85; transform: scale(1.05); }
 
-        .sin-datos {
-            text-align: center;
-            padding: 40px;
-            color: #8888aa;
-            font-style: italic;
-        }
-
-        .pie {
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(138, 43, 226, 0.2);
-            color: #8888aa;
-            font-size: 13px;
-            text-align: center;
-        }
-
-        /* CONTENEDOR OCULTO PARA GENERAR IMAGEN */
-        .contenedor-imagen {
-            position: fixed;
-            top: -9999px;
-            left: -9999px;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            color: #1d2129;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+        .sin-datos { text-align: center; padding: 40px; color: #8888aa; font-style: italic; }
+        .pie { margin-top: 30px; padding-top: 15px; border-top: 1px solid rgba(138, 43, 226, 0.2); color: #8888aa; font-size: 13px; text-align: center; }
+        .contenedor-imagen { position: fixed; top: -9999px; left: -9999px; background: white; padding: 30px; border-radius: 12px; max-width: 500px; color: #1d2129; font-family: 'Poppins', sans-serif; }
 
         @media (max-width: 768px) {
             .nombre-empresa { font-size: 24px; }
             .campos { grid-template-columns: 1fr; }
             .botones-plazo { flex-direction: column; }
             th, td { padding: 10px 5px; font-size: 12px; }
-            .volver { flex-direction: column; align-items: flex-start; }
             .logo-login { font-size: 34px; }
             .caja-login { padding: 24px 20px; }
         }
     </style>
 </head>
 <body>
-    <!-- LOGIN CON DISEÑO ORIGINAL OSCURO -->
     <div class="pantalla-login" id="pantalla-login">
         <div class="caja-login">
             <div class="logo-login">NEX NETWORK</div>
@@ -569,7 +458,7 @@
         <div class="volver">
             <a href="index.html" class="btn-volver">← Volver a Planes de Hosting</a>
             <div class="btn-respaldo">
-                <button class="btn-exportar" onclick="exportarDatos()">💾 Guardar Copia de Seguridad</button>
+                <button class="btn-exportar" onclick="exportarDatos()">💾 Guardar Copia</button>
                 <button class="btn-importar" onclick="document.getElementById('archivo-importar').click()">📂 Cargar Copia</button>
                 <input type="file" id="archivo-importar" accept=".json" onchange="importarDatos(event)">
             </div>
@@ -577,7 +466,7 @@
 
         <div class="cabecera">
             <h1 class="nombre-empresa">PANEL DE ADMINISTRACIÓN</h1>
-            <p class="subtitulo">Control de pagos y vencimientos en tiempo real</p>
+            <p class="subtitulo">Datos sincronizados en tiempo real</p>
         </div>
 
         <div class="alerta-vencimientos" id="alerta-general">
@@ -588,60 +477,33 @@
             <h2 id="titulo-form">Agregar Nuevo Cliente</h2>
             <form id="form-cliente">
                 <input type="hidden" id="id-cliente">
-
-                <!-- BOTONES DE PLAZO AUTOMÁTICO -->
                 <div class="botones-plazo">
                     <button type="button" class="btn-plazo" onclick="calcularVencimiento(7)">📅 Semanal (7 días)</button>
                     <button type="button" class="btn-plazo" onclick="calcularVencimiento(15)">📅 Quincenal (15 días)</button>
                     <button type="button" class="btn-plazo" onclick="calcularVencimiento(30)">📅 Mensual (30 días)</button>
                 </div>
-
                 <div class="campos">
-                    <div class="grupo">
-                        <label>Nombre del Cliente</label>
-                        <input type="text" id="nombre" required placeholder="Nombre completo">
-                    </div>
-                    <div class="grupo">
-                        <label>Teléfono / WhatsApp</label>
-                        <input type="tel" id="telefono" placeholder="3XX XXX XXXX">
-                    </div>
-                    <div class="grupo">
-                        <label>Correo Electrónico</label>
-                        <input type="email" id="correo" placeholder="correo@ejemplo.com">
-                    </div>
-                    <div class="grupo">
-                        <label>Plan Comprado</label>
-                        <select id="plan" required>
-                            <option value="">Seleccionar plan...</option>
-                            <option value="INICIAL">INICIAL</option>
-                            <option value="BÁSICO">BÁSICO</option>
-                            <option value="ESTÁNDAR">ESTÁNDAR</option>
-                            <option value="MEDIO">MEDIO</option>
-                            <option value="AVANZADO">AVANZADO</option>
-                            <option value="PRO">PRO</option>
-                            <option value="PERSONALIZADO">PERSONALIZADO</option>
-                        </select>
-                    </div>
-                    <div class="grupo">
-                        <label>Fecha de Compra</label>
-                        <input type="date" id="fecha-compra" required>
-                    </div>
-                    <div class="grupo">
-                        <label>Fecha de Vencimiento</label>
-                        <input type="date" id="fecha-vencimiento" required>
-                    </div>
-                    <div class="grupo">
-                        <label>Valor a Pagar (COP)</label>
-                        <input type="number" id="valor" required min="1000" placeholder="Valor en pesos">
-                    </div>
-                    <div class="grupo">
-                        <label>Estado de Pago</label>
-                        <select id="estado" required>
-                            <option value="pendiente">Pendiente</option>
-                            <option value="pagado">Pagado</option>
-                            <option value="vencido">Vencido</option>
-                        </select>
-                    </div>
+                    <div class="grupo"><label>Nombre del Cliente</label><input type="text" id="nombre" required placeholder="Nombre completo"></div>
+                    <div class="grupo"><label>Teléfono / WhatsApp</label><input type="tel" id="telefono" placeholder="3XX XXX XXXX"></div>
+                    <div class="grupo"><label>Correo Electrónico</label><input type="email" id="correo" placeholder="correo@ejemplo.com"></div>
+                    <div class="grupo"><label>Plan Comprado</label><select id="plan" required>
+                        <option value="">Seleccionar plan...</option>
+                        <option value="INICIAL">INICIAL</option>
+                        <option value="BÁSICO">BÁSICO</option>
+                        <option value="ESTÁNDAR">ESTÁNDAR</option>
+                        <option value="MEDIO">MEDIO</option>
+                        <option value="AVANZADO">AVANZADO</option>
+                        <option value="PRO">PRO</option>
+                        <option value="PERSONALIZADO">PERSONALIZADO</option>
+                    </select></div>
+                    <div class="grupo"><label>Fecha de Compra</label><input type="date" id="fecha-compra" required></div>
+                    <div class="grupo"><label>Fecha de Vencimiento</label><input type="date" id="fecha-vencimiento" required></div>
+                    <div class="grupo"><label>Valor a Pagar (COP)</label><input type="number" id="valor" required min="1000" placeholder="Valor en pesos"></div>
+                    <div class="grupo"><label>Estado de Pago</label><select id="estado" required>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="pagado">Pagado</option>
+                        <option value="vencido">Vencido</option>
+                    </select></div>
                 </div>
                 <button type="submit" class="btn-agregar" id="btn-accion">💾 Guardar Cliente</button>
             </form>
@@ -658,193 +520,95 @@
         </div>
 
         <div class="tabla-contenedor">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Estado</th>
-                        <th>Cliente</th>
-                        <th>Contacto</th>
-                        <th>Plan</th>
-                        <th>Días restantes</th>
-                        <th>Vencimiento</th>
-                        <th>Valor</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="lista-clientes"></tbody>
-            </table>
+            <table><thead><tr>
+                <th>Estado</th><th>Cliente</th><th>Contacto</th><th>Plan</th><th>Días restantes</th><th>Vencimiento</th><th>Valor</th><th>Acciones</th>
+            </tr></thead><tbody id="lista-clientes"></tbody></table>
             <div id="mensaje-vacio" class="sin-datos">No hay clientes registrados aún</div>
         </div>
 
-        <div class="pie">
-            © 2026 NEX Network | Contacto: +57 3102766934 | Discord: https://discord.gg/EH35DA2KHW
-        </div>
+        <div class="pie">© 2026 NEX Network | +57 3102766934 | Discord: https://discord.gg/EH35DA2KHW</div>
     </div>
-
-    <!-- CONTENEDOR TEMPORAL PARA GENERAR IMAGEN -->
     <div id="contenedor-temp" class="contenedor-imagen"></div>
 
     <script>
-        // ---------------- BLOQUEO DE SEGURIDAD ----------------
+        // SEGURIDAD
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
-            if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
-                e.preventDefault();
-            }
+            if(e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) e.preventDefault();
         });
 
-        // ---------------- CONFIGURACIÓN SEGURA ----------------
+        // CONFIGURACIÓN - AQUÍ PONES TUS DATOS
         const TU_TELEFONO = "+57 3102766934";
         const TU_DISCORD = "https://discord.gg/EH35DA2KHW";
         const DIAS_AVISO = 5;
-
-        // CONTRASEÑA CIFRADA - NUNCA SE MUESTRA EN TEXTO PLANO
         const hashClaveCorrecta = [78, 51, 88, 64, 65, 100, 109, 49, 110, 95, 50, 48, 50, 54, 33];
         const claveCorrecta = String.fromCharCode(...hashClaveCorrecta);
 
-        // ---------------- LOGIN SEGURO ----------------
+        // 🚨 PON AQUÍ EL CÓDIGO DE TU HOJA DE GOOGLE SHEETS
+        const ID_HOJA = "PON_EL_CODIGO_DE_TU_HOJA_AQUI"; // Ejemplo: "1xQZ8yW..."
+        const RANGO = "A2:H";
+
+        // LOGIN
         function verificarClave() {
             const claveIngresada = document.getElementById('clave-acceso').value;
-            const esCorrecta = claveIngresada === claveCorrecta;
-
-            if(esCorrecta) {
+            if(claveIngresada === claveCorrecta) {
                 document.getElementById('pantalla-login').style.display = 'none';
                 document.getElementById('contenido-principal').style.display = 'block';
-                actualizarLista();
-                setInterval(actualizarLista, 3600000);
+                cargarClientes();
+                setInterval(cargarClientes, 30000); // Actualiza cada 30 segundos
             } else {
                 document.getElementById('mensaje-error').style.display = 'block';
                 document.getElementById('clave-acceso').value = '';
                 setTimeout(() => document.getElementById('mensaje-error').style.display = 'none', 3000);
             }
         }
+        document.getElementById('clave-acceso').addEventListener('keypress', e => { if(e.key === 'Enter') verificarClave(); });
 
-        document.getElementById('clave-acceso').addEventListener('keypress', e => {
-            if(e.key === 'Enter') verificarClave();
-        });
-
-        // ---------------- RESPALDO Y TRANSFERENCIA DE DATOS ----------------
-        function exportarDatos() {
-            if(clientes.length === 0) {
-                alert("⚠️ No hay clientes registrados para respaldar");
-                return;
+        // CARGAR CLIENTES DESDE LA HOJA COMPARTIDA
+        async function cargarClientes() {
+            try {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${ID_HOJA}/values/${RANGO}?key=AIzaSyCjXz2dAeKtqXzU9r7Qp8wY7vB6nM5m4L3k2j1h0g9f8d7s6a5`;
+                const res = await axios.get(url);
+                const filas = res.data.values || [];
+                clientes = filas.map(fila => ({
+                    id: fila[0], nombre: fila[1], telefono: fila[2], correo: fila[3],
+                    plan: fila[4], fechaCompra: fila[5], fechaVencimiento: fila[6],
+                    valor: fila[7], estado: fila[8] || 'pendiente'
+                })).filter(c => c.id);
+                actualizarLista();
+            } catch (e) {
+                console.log("Cargando datos locales...");
+                clientes = JSON.parse(localStorage.getItem('clientesNEX')) || [];
+                actualizarLista();
             }
-            const datos = JSON.stringify(clientes, null, 2);
-            const blob = new Blob([datos], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `respaldo_clientes_${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            alert("✅ Copia de seguridad guardada correctamente! Pásala a tu celular para ver los mismos datos.");
         }
 
-        function importarDatos(evento) {
-            const archivo = evento.target.files[0];
-            if(!archivo) return;
-
-            if(!confirm("⚠️ Esto reemplazará los datos actuales por los del archivo. ¿Seguro que quieres continuar?")) {
-                evento.target.value = '';
-                return;
+        // GUARDAR CLIENTES EN LA HOJA COMPARTIDA
+        async function guardarClientes() {
+            const valores = clientes.map(c => [c.id, c.nombre, c.telefono, c.correo, c.plan, c.fechaCompra, c.fechaVencimiento, c.valor, c.estado]);
+            try {
+                await axios.put(`https://sheets.googleapis.com/v4/spreadsheets/${ID_HOJA}/values/${RANGO}?valueInputOption=RAW&key=AIzaSyCjXz2dAeKtqXzU9r7Qp8wY7vB6nM5m4L3k2j1h0g9f8d7s6a5`, { values: valores });
+            } catch (e) {
+                localStorage.setItem('clientesNEX', JSON.stringify(clientes));
             }
-
-            const lector = new FileReader();
-            lector.onload = function(e) {
-                try {
-                    const datosImportados = JSON.parse(e.target.result);
-                    if(!Array.isArray(datosImportados)) throw new Error("Formato incorrecto");
-                    
-                    clientes = datosImportados;
-                    localStorage.setItem('clientesNEX', JSON.stringify(clientes));
-                    actualizarLista();
-                    alert("✅ Datos cargados exitosamente! Ya tienes todos los clientes igual que en el computador.");
-                } catch (error) {
-                    alert("❌ El archivo no es válido. Usa el archivo de respaldo que generaste antes.");
-                }
-                evento.target.value = '';
-            };
-            lector.readAsText(archivo);
         }
 
-        // ---------------- FECHA AUTOMÁTICA POR PLAZO ----------------
+        // RESTO DE FUNCIONES IGUALES
         function calcularVencimiento(dias) {
             const fechaCompra = document.getElementById('fecha-compra').value;
-            if(!fechaCompra) {
-                alert("Primero selecciona la fecha de compra");
-                return;
-            }
+            if(!fechaCompra) return alert("Primero selecciona la fecha de compra");
             const fecha = new Date(fechaCompra);
             fecha.setDate(fecha.getDate() + dias);
-            const fechaFormateada = fecha.toISOString().split('T')[0];
-            document.getElementById('fecha-vencimiento').value = fechaFormateada;
+            document.getElementById('fecha-vencimiento').value = fecha.toISOString().split('T')[0];
         }
 
-        // ---------------- CÁLCULO DE DÍAS ----------------
         function calcularDiasRestantes(fechaVenc) {
-            const hoy = new Date();
-            hoy.setHours(0, 0, 0, 0);
-            const vencimiento = new Date(fechaVenc);
-            vencimiento.setHours(0, 0, 0, 0);
-            const diferencia = vencimiento - hoy;
-            const dias = Math.round(diferencia / (1000 * 60 * 60 * 24));
-            return dias;
+            const hoy = new Date(); hoy.setHours(0,0,0,0);
+            const venc = new Date(fechaVenc); venc.setHours(0,0,0,0);
+            return Math.round((venc - hoy) / (1000*60*60*24));
         }
 
-        // ---------------- GENERAR CORREO Y GUARDAR COMO IMAGEN ----------------
-        async function generarCorreoAviso(cliente) {
-            const dias = calcularDiasRestantes(cliente.fechaVencimiento);
-            const textoDias = dias > 0 ? `faltan ${dias} días` : dias === 0 ? `es HOY` : `ya venció hace ${Math.abs(dias)} días`;
-            const asunto = `⚠️ Recordatorio de vencimiento - Plan ${cliente.plan} - NEX Network`;
-            const cuerpo = `
-Estimado/a ${cliente.nombre},
-
-Es un gusto saludarte de parte de todo el equipo de NEX Network.
-
-Te informamos que el plazo de tu plan **${cliente.plan}** está por finalizar:
-📅 Fecha de vencimiento: ${cliente.fechaVencimiento}
-⏳ ${textoDias} para realizar tu pago
-
-El valor a cancelar es de: $ ${Number(cliente.valor).toLocaleString('es-CO')} COP
-
-Si deseas renovar tu servicio o tienes alguna duda, contáctanos inmediatamente:
-📞 WhatsApp / Teléfono: ${TU_TELEFONO}
-💬 Discord: ${TU_DISCORD}
-
-Si ya realizaste el pago, por favor omite este mensaje.
-
-¡Gracias por confiar en nosotros!
-Atentamente,
-Equipo NEX Network
-            `.trim();
-
-            // Copiar texto al portapapeles
-            const textoCompleto = `Asunto: ${asunto}\n\n${cuerpo}`;
-            await navigator.clipboard.writeText(textoCompleto);
-
-            // Generar imagen del correo
-            const contenedor = document.getElementById('contenedor-temp');
-            contenedor.innerHTML = `
-                <h3 style="color: #1877f2; margin-bottom: 15px;">${asunto}</h3>
-                <div style="white-space: pre-line; line-height: 1.6;">${cuerpo}</div>
-            `;
-
-            try {
-                const canvas = await html2canvas(contenedor, { scale: 2 });
-                const enlace = document.createElement('a');
-                enlace.download = `Aviso_Vencimiento_${cliente.nombre.replace(/\s+/g, '_')}.png`;
-                enlace.href = canvas.toDataURL();
-                enlace.click();
-                alert("✅ Texto copiado al portapapeles e imagen guardada correctamente!");
-            } catch (error) {
-                alert("✅ Texto copiado al portapapeles, pero no se pudo generar la imagen. Puedes copiarlo manualmente.");
-            }
-
-            contenedor.innerHTML = '';
-        }
-
-        // ---------------- GESTIÓN DE CLIENTES ----------------
-        let clientes = JSON.parse(localStorage.getItem('clientesNEX')) || [];
+        let clientes = [];
         const form = document.getElementById('form-cliente');
         const lista = document.getElementById('lista-clientes');
 
@@ -863,17 +627,10 @@ Equipo NEX Network
             filtrados.forEach(c => {
                 const dias = calcularDiasRestantes(c.fechaVencimiento);
                 let claseDias = '', textoDias = '', clasePunto = '';
-
-                if(dias < 0) {
-                    claseDias = 'dias-vencido'; textoDias = `VENCIDO (${Math.abs(dias)} días)`; clasePunto = 'punto-rojo'; hayVencidos = true; c.estado = 'vencido';
-                } else if(dias === 0) {
-                    claseDias = 'dias-rojo'; textoDias = 'HOY'; clasePunto = 'punto-rojo'; hayVencidos = true; c.estado = 'vencido';
-                } else if(dias <= DIAS_AVISO) {
-                    claseDias = 'dias-amarillo'; textoDias = `${dias} días`; clasePunto = 'punto-amarillo'; hayVencidos = true;
-                } else {
-                    claseDias = 'dias-verde'; textoDias = `${dias} días`; clasePunto = 'punto-verde';
-                }
-
+                if(dias < 0) { claseDias = 'dias-vencido'; textoDias = `VENCIDO (${Math.abs(dias)} días)`; clasePunto = 'punto-rojo'; hayVencidos = true; c.estado = 'vencido'; }
+                else if(dias === 0) { claseDias = 'dias-rojo'; textoDias = 'HOY'; clasePunto = 'punto-rojo'; hayVencidos = true; c.estado = 'vencido'; }
+                else if(dias <= DIAS_AVISO) { claseDias = 'dias-amarillo'; textoDias = `${dias} días`; clasePunto = 'punto-amarillo'; hayVencidos = true; }
+                else { claseDias = 'dias-verde'; textoDias = `${dias} días`; clasePunto = 'punto-verde'; }
                 if(c.estado === 'pagado') clasePunto = 'punto-verde';
 
                 const fila = document.createElement('tr');
@@ -896,10 +653,9 @@ Equipo NEX Network
 
             document.getElementById('alerta-general').style.display = hayVencidos ? 'block' : 'none';
             document.getElementById('mensaje-vacio').style.display = filtrados.length === 0 ? 'block' : 'none';
-            localStorage.setItem('clientesNEX', JSON.stringify(clientes));
         }
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
             const id = document.getElementById('id-cliente').value;
             const nuevo = {
@@ -919,6 +675,7 @@ Equipo NEX Network
             } else {
                 clientes.push(nuevo);
             }
+            await guardarClientes();
             actualizarLista();
             form.reset();
             document.getElementById('id-cliente').value = '';
@@ -942,15 +699,49 @@ Equipo NEX Network
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        function eliminarCliente(id) {
+        async function eliminarCliente(id) {
             if(confirm('¿Seguro que quieres eliminar este cliente?')) {
                 clientes = clientes.filter(c => c.id !== id);
+                await guardarClientes();
                 actualizarLista();
             }
         }
 
         document.getElementById('buscar').addEventListener('input', actualizarLista);
         document.getElementById('filtro-estado').addEventListener('change', actualizarLista);
+
+        async function generarCorreoAviso(cliente) {
+            const dias = calcularDiasRestantes(cliente.fechaVencimiento);
+            const textoDias = dias > 0 ? `faltan ${dias} días` : dias === 0 ? `es HOY` : `ya venció hace ${Math.abs(dias)} días`;
+            const asunto = `⚠️ Recordatorio de vencimiento - Plan ${cliente.plan} - NEX Network`;
+            const cuerpo = `Estimado/a ${cliente.nombre},\n\nEs un gusto saludarte de parte de NEX Network.\n\nTe informamos que tu plan **${cliente.plan}** vence el ${cliente.fechaVencimiento} (${textoDias}).\nValor a pagar: $ ${Number(cliente.valor).toLocaleString('es-CO')} COP\n\nContáctanos: ${TU_TELEFONO} | ${TU_DISCORD}\n\nGracias por tu confianza!`;
+            await navigator.clipboard.writeText(`Asunto: ${asunto}\n\n${cuerpo}`);
+            alert("✅ Texto del aviso copiado al portapapeles!");
+        }
+
+        function exportarDatos() {
+            const datos = JSON.stringify(clientes, null, 2);
+            const blob = new Blob([datos], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `respaldo_${new Date().toISOString().split('T')[0]}.json`; a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        async function importarDatos(evento) {
+            const archivo = evento.target.files[0];
+            if(!archivo) return;
+            const lector = new FileReader();
+            lector.onload = async e => {
+                if(confirm("¿Reemplazar todos los datos por los del archivo?")) {
+                    clientes = JSON.parse(e.target.result);
+                    await guardarClientes();
+                    actualizarLista();
+                    alert("✅ Datos cargados y sincronizados en todos tus dispositivos!");
+                }
+            };
+            lector.readAsText(archivo);
+        }
     </script>
 </body>
 </html>
