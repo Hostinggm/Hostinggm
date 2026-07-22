@@ -541,14 +541,14 @@
         const TU_TELEFONO = "+57 3102766934";
         const TU_DISCORD = "https://discord.gg/EH35DA2KHW";
         const DIAS_AVISO = 5;
-        const hashClaveCorrecta = [78, 51, 88, 64, 65, 100, 109, 49, 110, 95, 50, 48, 50, 54, 33];
-        const claveCorrecta = String.fromCharCode(...hashClaveCorrecta);
+        // ✅ CONTRASEÑA RESTAURADA A LA ANTERIOR: admin123
+        const claveCorrecta = "admin123";
 
         // 🚨 PON AQUÍ EL CÓDIGO DE TU HOJA DE GOOGLE SHEETS
         const ID_HOJA = "PON_EL_CODIGO_DE_TU_HOJA_AQUI"; // Ejemplo: "1xQZ8yW..."
         const RANGO = "A2:H";
 
-        // LOGIN
+        // LOGIN (MANTENIDO IGUAL QUE ANTES)
         function verificarClave() {
             const claveIngresada = document.getElementById('clave-acceso').value;
             if(claveIngresada === claveCorrecta) {
